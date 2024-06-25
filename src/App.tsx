@@ -1,8 +1,16 @@
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+
+import { HomePage, LoginPage, NotFoundPage } from "@/pages";
+
 const App = () => {
   return (
-    <div className="container prose">
-      <h1 className="text-slate-800">Makkakuh - Glory Wall</h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Router>
   );
 };
 
