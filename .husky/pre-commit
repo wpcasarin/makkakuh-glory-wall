@@ -1,0 +1,5 @@
+echo "Linting..."
+pnpm lint
+
+echo "Formatting"
+pnpm format
