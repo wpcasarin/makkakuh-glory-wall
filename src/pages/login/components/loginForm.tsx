@@ -1,6 +1,7 @@
 import { valibotResolver } from "@hookform/resolvers/valibot";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { ExclamationTriangleIcon, ReloadIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import * as v from "valibot";
 
 import { Button } from "@/components/ui/button";
@@ -21,12 +22,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { supabaseClient } from "@/lib/supabase";
+import { cn } from "@/lib/utils";
 
 const loginSchema = v.object({
   email: v.pipe(
     v.string(),
     v.nonEmpty("Digite seu email."),
-    v.email("Digite um email valido.")
+    v.email("Digite um email válido.")
   ),
   password: v.pipe(v.string(), v.nonEmpty("Digite sua senha.")),
 });
@@ -34,6 +37,8 @@ const loginSchema = v.object({
 type LoginData = v.InferOutput<typeof loginSchema>;
 
 export const LoginForm = () => {
+  const navigate = useNavigate();
+
   const form = useForm<LoginData>({
     resolver: valibotResolver(loginSchema),
     defaultValues: {
@@ -43,17 +48,23 @@ export const LoginForm = () => {
   });
 
   const {
+    setError,
+    resetField,
     formState: { errors, isSubmitting },
   } = form;
 
-  // TODO implement sign in
   const onSubmit = async (values: LoginData) => {
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        resolve();
-        console.log(values);
-      }, 2000);
-    });
+    // TODO improve error messages
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword(values);
+    if (error) {
+      resetField("password"),
+        setError("root.serverError", {
+          type: error.name,
+          message: error.message,
+        });
+    }
+    if (data.session) navigate("/");
   };
 
   return (
@@ -94,12 +105,26 @@ export const LoginForm = () => {
                   </FormItem>
                 )}
               />
+
+              {errors.root?.serverError.message && (
+                <div
+                  className={cn(
+                    "flex flex-row items-center rounded-lg border border-destructive px-3 py-3 text-sm text-destructive"
+                  )}
+                >
+                  <ExclamationTriangleIcon className="mr-2 size-4" />
+                  {errors.root?.serverError.message}
+                </div>
+              )}
             </CardContent>
+
             <CardFooter>
               <Button
                 type="submit"
                 className="flex-grow"
-                disabled={isSubmitting || Object.keys(errors).length > 0}
+                disabled={
+                  (isSubmitting || errors.password || errors.email) && true
+                }
               >
                 {isSubmitting ? (
                   <>
