@@ -64,7 +64,7 @@ export const LoginForm = () => {
           message: error.message,
         });
     }
-    if (data.session) navigate("/");
+    if (data.session) navigate("/admin");
   };
 
   return (
