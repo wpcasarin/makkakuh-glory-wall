@@ -1,5 +1,6 @@
 import { NotFoundPage } from "./404";
+import { AdminPage } from "./admin";
 import { HomePage } from "./home";
 import { LoginPage } from "./login";
 
-export { HomePage, LoginPage, NotFoundPage };
+export { AdminPage, HomePage, LoginPage, NotFoundPage };
