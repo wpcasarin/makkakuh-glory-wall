@@ -1,7 +1,15 @@
+import { cn } from "@/lib/utils";
+
+import { AddMemberForm } from "./components/addMemberForm";
+
 export const AdminPage = () => {
   return (
-    <div className="container prose">
-      <h1 className="text-slate-800">Admin Page</h1>
-    </div>
+    <main
+      className={cn(
+        "container grid h-dvh max-w-screen-xs grid-cols-1 xs:content-center"
+      )}
+    >
+      <AddMemberForm />
+    </main>
   );
 };
