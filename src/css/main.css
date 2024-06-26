@@ -67,6 +67,14 @@
 }
 
 @layer base {
+  @font-face {
+    font-family: "Geist";
+    src: url(/assets/GeistVF.woff2) format("woff2");
+  }
+  @font-face {
+    font-family: "Halibut";
+    src: url(/assets/Halibut-CondensedRegular.woff2) format("woff2");
+  }
   * {
     @apply border-border;
   }

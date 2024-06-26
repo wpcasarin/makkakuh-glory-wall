@@ -9,6 +9,10 @@ const config: Config = {
   content: ["./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
+    fontFamily: {
+      geist: ["Geist", "sans-serif"],
+      halibut: ["Halibut", "sans-serif"],
+    },
     screens: {
       xs: "475px",
       ...defaultTheme.screens,
@@ -17,6 +21,9 @@ const config: Config = {
       center: true,
     },
     extend: {
+      fontFamily: {
+        sans: ["Geist", ...defaultTheme.fontFamily.sans],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
