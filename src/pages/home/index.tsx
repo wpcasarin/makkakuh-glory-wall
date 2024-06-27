@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { supabaseClient } from "@/lib/supabase";
-import { cn } from "@/lib/utils";
+import { Avatar, AvatarImage } from "@components/ui";
+import { supabaseClient } from "@lib/supabase";
+import { cn } from "@lib/utils";
 
 type Member = {
   created_at: string;
@@ -27,7 +27,7 @@ const rankMap: RankItem[] = [
   [8, "/assets/dai_shinpan_4.svg"],
 ];
 
-export const HomePage = () => {
+const HomePage = () => {
   const [members, setMembers] = useState<Member[]>();
 
   useEffect(() => {
@@ -50,6 +50,7 @@ export const HomePage = () => {
         {members?.map((member) => {
           return (
             <div
+              key={member.id}
               className="flex scale-100 flex-row gap-4 rounded-xl bg-cover bg-center p-2 duration-500 ease-in hover:scale-105"
               style={{
                 backgroundImage: "url('/assets/wood-wall-texture.svg')",
@@ -58,12 +59,14 @@ export const HomePage = () => {
               <Avatar className={cn("relative size-28 md:size-60")}>
                 <AvatarImage
                   src={member.picture_url}
+                  alt={`foto de ${member.name}`}
                   className={cn(
                     "absolute left-4 top-[10px] size-20 rounded-full object-cover shadow-lg shadow-black ring-2 ring-yellow-950 md:left-8 md:top-4 md:size-44 md:ring-4"
                   )}
                 />
                 <AvatarImage
                   src={`${rankMap[member.rank - 1][1]}`}
+                  alt="patente"
                   className="absolute inset-0 z-10 size-28 md:size-60"
                 />
               </Avatar>
@@ -86,3 +89,5 @@ export const HomePage = () => {
     </div>
   );
 };
+
+export default HomePage;

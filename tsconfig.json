@@ -26,7 +26,12 @@
     // Paths
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@components/*": ["./src/components/*"],
+      "@hooks": ["./src/hooks"],
+      "@lib/*": ["./src/lib/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@routes": ["src/routes"],
+      "@contexts": ["./src/contexts"]
     }
   },
   "include": ["src"],

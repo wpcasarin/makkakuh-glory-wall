@@ -1,8 +1,8 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 
 import { AddMemberForm } from "./components/addMemberForm";
 
-export const AdminPage = () => {
+const AdminPage = () => {
   return (
     <main
       className={cn(
@@ -13,3 +13,5 @@ export const AdminPage = () => {
     </main>
   );
 };
+
+export default AdminPage;

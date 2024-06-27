@@ -2,9 +2,9 @@ import { createContext, useEffect, useState } from "react";
 
 import { Session, User } from "@supabase/supabase-js";
 
-import { supabaseClient } from "@/lib/supabase";
+import { supabaseClient } from "@lib/supabase";
 
-export const AuthContext = createContext<{
+const AuthContext = createContext<{
   session: Session | null | undefined;
   user: User | null | undefined;
   signOut: () => void;
@@ -14,7 +14,7 @@ type AuthProviderProps = {
   children: React.ReactNode;
 };
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User>();
   const [session, setSession] = useState<Session | null>();
   const [loading, setLoading] = useState(true);
@@ -58,3 +58,5 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export { AuthContext, AuthProvider };

@@ -4,26 +4,24 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as v from "valibot";
 
-import { Button } from "@/components/ui/button";
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { supabaseClient } from "@/lib/supabase";
-import { cn } from "@/lib/utils";
+  Input,
+} from "@components/ui";
+import { supabaseClient } from "@lib/supabase";
+import { cn } from "@lib/utils";
 
 const loginSchema = v.object({
   email: v.pipe(
@@ -36,7 +34,7 @@ const loginSchema = v.object({
 
 type LoginData = v.InferOutput<typeof loginSchema>;
 
-export const LoginForm = () => {
+const LoginForm = () => {
   const navigate = useNavigate();
 
   const form = useForm<LoginData>({
@@ -142,3 +140,5 @@ export const LoginForm = () => {
     </>
   );
 };
+
+export { LoginForm };

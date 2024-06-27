@@ -11,8 +11,8 @@ import {
   useFormContext,
 } from "react-hook-form";
 
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+import { Label } from "@components/ui";
+import { cn } from "@lib/utils";
 
 const Form = FormProvider;
 
@@ -168,10 +168,10 @@ FormMessage.displayName = "FormMessage";
 
 export {
   Form,
-  FormItem,
-  FormLabel,
   FormControl,
   FormDescription,
-  FormMessage,
   FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 };

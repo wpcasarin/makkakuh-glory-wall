@@ -1,8 +1,8 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 
 import { LoginForm } from "./components/loginForm";
 
-export const LoginPage = () => {
+const LoginPage = () => {
   return (
     <main
       className={cn(
@@ -13,3 +13,5 @@ export const LoginPage = () => {
     </main>
   );
 };
+
+export default LoginPage;

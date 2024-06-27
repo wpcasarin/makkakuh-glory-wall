@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 
-export const NotFoundPage = () => {
+const NotFoundPage = () => {
   return (
     <main
       className={cn("container flex min-h-dvh items-center justify-center p-4")}
@@ -22,3 +22,5 @@ export const NotFoundPage = () => {
     </main>
   );
 };
+
+export default NotFoundPage;

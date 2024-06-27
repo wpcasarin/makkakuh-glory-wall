@@ -19,7 +19,7 @@ const config = {
     "",
     "<THIRD_PARTY_MODULES>",
     "",
-    "^(@)(/.*)$",
+    "^(@components|@context|@hooks|@lib|@pages|@router|@type).*$",
     "",
     "^[.]",
   ],

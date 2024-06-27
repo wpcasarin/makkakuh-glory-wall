@@ -4,34 +4,30 @@ import { nanoid } from "nanoid";
 import { useForm } from "react-hook-form";
 import * as v from "valibot";
 
-import { Button } from "@/components/ui/button";
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import {
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { supabaseClient } from "@/lib/supabase";
-import { cn } from "@/lib/utils";
+  Textarea,
+} from "@components/ui";
+import { supabaseClient } from "@lib/supabase";
+import { cn } from "@lib/utils";
 
 const addMemberSchema = v.object({
   name: v.pipe(
@@ -54,7 +50,7 @@ const addMemberSchema = v.object({
 
 type AddMemberData = v.InferOutput<typeof addMemberSchema>;
 
-export const AddMemberForm = () => {
+const AddMemberForm = () => {
   const form = useForm<AddMemberData>({
     resolver: valibotResolver(addMemberSchema),
     defaultValues: {
@@ -245,3 +241,5 @@ export const AddMemberForm = () => {
     </>
   );
 };
+
+export { AddMemberForm };
