@@ -9,6 +9,69 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      tb_honors: {
+        Row: {
+          created_at: string;
+          id: number;
+          name: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          name: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          name?: string;
+        };
+        Relationships: [];
+      };
+      tb_member_honor: {
+        Row: {
+          created_at: string;
+          date: string | null;
+          description: string | null;
+          id: number;
+          id_honor: number;
+          id_member: number;
+          updated_at: string;
+        };
+        Insert: {
+          created_at?: string;
+          date?: string | null;
+          description?: string | null;
+          id?: number;
+          id_honor: number;
+          id_member: number;
+          updated_at?: string;
+        };
+        Update: {
+          created_at?: string;
+          date?: string | null;
+          description?: string | null;
+          id?: number;
+          id_honor?: number;
+          id_member?: number;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "tb_member_honor_id_honor_fkey";
+            columns: ["id_honor"];
+            isOneToOne: false;
+            referencedRelation: "tb_honors";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "tb_member_honor_id_member_fkey";
+            columns: ["id_member"];
+            isOneToOne: false;
+            referencedRelation: "tb_members";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       tb_members: {
         Row: {
           created_at: string;
