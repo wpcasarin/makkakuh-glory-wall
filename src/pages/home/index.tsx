@@ -21,8 +21,8 @@ type Member = Database["public"]["Tables"]["tb_members"]["Row"];
 type Honor = Database["public"]["Tables"]["tb_member_honor"]["Row"];
 
 const HomePage = () => {
-  const [members, setMembers] = useState<Member[]>();
-  const [honors, setHonors] = useState<Honor[]>();
+  const [members, setMembers] = useState<Member[]>([]);
+  const [honors, setHonors] = useState<Honor[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
