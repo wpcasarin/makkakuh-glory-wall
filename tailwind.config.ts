@@ -73,10 +73,26 @@ const config: Config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        wiggle: {
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" },
+        },
+        glow: {
+          from: {
+            "box-shadow":
+              "0 0 1px #fff, 0 0 2px #fff, 0 0 20px #b49a04, 0 0 6px #b49a04, 0 0 8px #b49a04, 0 0 10px #b49a04, 0 0 12px #b49a04",
+          },
+          to: {
+            "box-shadow":
+              "0 0 1px #fff, 0 0 2px #f0dc6d, 0 0 6px #f0dc6d, 0 0 8px #f0dc6d, 0 0 10px #f0dc6d, 0 0 12px #f0dc6d, 0 0 14px #f0dc6d",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        wiggle: "wiggle 1s ease-in-out infinite",
+        glow: "glow 1s ease-in-out infinite alternate",
       },
     },
   },
