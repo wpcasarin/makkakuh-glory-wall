@@ -22,6 +22,9 @@ export {
   FormLabel,
   FormMessage,
 } from "./Form";
+
+export { HoverCard, HoverCardTrigger, HoverCardContent } from "./HoverCard";
+
 export { Input } from "./Input";
 
 export { Label } from "./Label";
