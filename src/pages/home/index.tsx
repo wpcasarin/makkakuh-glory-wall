@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
 
-import { Avatar, AvatarImage } from "@components/ui";
+import type { Database } from "@lib/types";
+
 import { supabaseClient } from "@lib/supabase";
 import { cn } from "@lib/utils";
+
+import { Honor } from "./components/Honor";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// import Medal from "../../assets/medal.svg?react";
+import { MemberAvatar } from "./components/MemberAvatar";
+import { MemberInfo } from "./components/MemberInfo";
 
 type Member = {
   created_at: string;
@@ -14,21 +22,11 @@ type Member = {
   update_at: string;
 };
 
-type RankItem = [number, string];
-
-const rankMap: RankItem[] = [
-  [1, "/assets/bushi.svg"],
-  [2, "/assets/tozama.svg"],
-  [3, "/assets/jozai.svg"],
-  [4, "/assets/shinpan.svg"],
-  [5, "/assets/dai_shinpan_1.svg"],
-  [6, "/assets/dai_shinpan_2.svg"],
-  [7, "/assets/dai_shinpan_3.svg"],
-  [8, "/assets/dai_shinpan_4.svg"],
-];
+type Honor = Database["public"]["Tables"]["tb_member_honor"]["Row"];
 
 const HomePage = () => {
   const [members, setMembers] = useState<Member[]>();
+  const [honors, setHonors] = useState<Honor[]>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,57 +34,66 @@ const HomePage = () => {
         .from("tb_members")
         .select("*");
       if (error) throw error;
+      {
+        console.log("FOI");
+        const { data, error } = await supabaseClient
+          .from("tb_member_honor")
+          .select("*");
+        console.log(data);
+        if (error) console.error(error);
+        setHonors(data);
+      }
       setMembers(data);
     };
+
     fetchData();
-  }, [setMembers]);
+  }, [setMembers, setHonors]);
 
   return (
-    <div className="container mb-10">
-      <h1 className="mb-6 mt-4 text-center font-halibut text-6xl font-bold text-yellow-950">
-        Mural da Glória
-      </h1>
-      <main className={cn("grid grid-cols-1 gap-4")}>
-        {members?.map((member) => {
-          return (
-            <div
-              key={member.id}
-              className="flex scale-100 flex-row gap-4 rounded-xl bg-cover bg-center p-2 duration-500 ease-in hover:scale-105"
-              style={{
-                backgroundImage: "url('/assets/wood-wall-texture.svg')",
-              }}
-            >
-              <Avatar className={cn("relative size-28 md:size-60")}>
-                <AvatarImage
-                  src={member.picture_url}
-                  alt={`foto de ${member.name}`}
-                  className={cn(
-                    "absolute left-4 top-[10px] size-20 rounded-full object-cover shadow-lg shadow-black ring-2 ring-yellow-950 md:left-8 md:top-4 md:size-44 md:ring-4"
-                  )}
-                />
-                <AvatarImage
-                  src={`${rankMap[member.rank - 1][1]}`}
-                  alt="patente"
-                  className="absolute inset-0 z-10 size-28 md:size-60"
-                />
-              </Avatar>
-              <div className="px-2 py-2">
-                <h1 className="font-halibut text-xl font-bold uppercase text-yellow-950">
-                  {member.name}
-                </h1>
-                <span
-                  className={cn(
-                    "line-clamp-3 font-halibut text-sm text-yellow-950"
-                  )}
-                >
-                  {member.description}
-                </span>
+    <>
+      <button onClick={() => console.log(JSON.stringify(honors))}>AAAA</button>
+      <div className="container mb-10">
+        <h1 className="mb-6 mt-4 text-center font-halibut text-6xl font-bold text-yellow-950">
+          Mural da Glória
+        </h1>
+        <main
+          className={cn(
+            "grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8 xl:grid-cols-4"
+          )}
+        >
+          {members?.map((member) => {
+            return (
+              <div
+                key={member.id}
+                className="grid h-full grid-cols-2 rounded-xl bg-cover bg-no-repeat p-2 lg:flex lg:flex-col lg:items-center lg:text-center"
+                style={{
+                  backgroundImage: "url('/assets/wood-wall-texture.svg')",
+                }}
+              >
+                <div className="col-span-2 flex flex-grow flex-row lg:flex-col lg:items-center">
+                  <MemberAvatar
+                    name={member.name}
+                    rank={member.rank}
+                    picture_url={member.picture_url}
+                  />
+                  <MemberInfo
+                    name={member.name}
+                    description={member.description}
+                  />
+                </div>
+                <div className="col-span-2 my-2 flex flex-wrap gap-1 px-4 lg:my-5 lg:justify-center lg:p-0">
+                  {honors?.map((honor) => {
+                    if (honor.id_member === member.id) {
+                      return <Honor key={honor.id} honorId={honor.id} />;
+                    }
+                  })}
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </main>
-    </div>
+            );
+          })}
+        </main>
+      </div>
+    </>
   );
 };
 
