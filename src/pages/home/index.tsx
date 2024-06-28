@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useEffect, useState } from "react";
 
 import type { Database } from "@lib/types";
@@ -9,20 +10,14 @@ import { Honor } from "./components/Honor";
 import { MemberAvatar } from "./components/MemberAvatar";
 import { MemberInfo } from "./components/MemberInfo";
 
-// type Member = {
-//   description: string;
-//   id: number;
-//   name: string;
-//   picture_url: string;
-//   rank: number;
-// };
-
 type Member = Database["public"]["Tables"]["tb_members"]["Row"];
 type Honor = Database["public"]["Tables"]["tb_member_honor"]["Row"];
 
 const HomePage = () => {
-  const [members, setMembers] = useState<Member[]>([]);
-  const [honors, setHonors] = useState<Honor[]>([]);
+  // @ts-expect-error
+  const [members, setMembers] = useState<Member[]>(undefined);
+  // @ts-expect-error
+  const [honors, setHonors] = useState<Honor[]>(undefined);
 
   useEffect(() => {
     const fetchData = async () => {
