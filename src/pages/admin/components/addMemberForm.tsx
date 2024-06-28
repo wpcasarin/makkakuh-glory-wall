@@ -40,7 +40,7 @@ const addMemberSchema = v.object({
     v.nonEmpty("Não pode estar vazio."),
     v.minLength(10, "Descrição deve conter 10 caracteres ou mais.")
   ),
-  picture_url: v.optional(v.string()),
+  picture_url: v.string(),
   rank: v.string(),
   file: v.pipe(
     v.instance(FileList),
