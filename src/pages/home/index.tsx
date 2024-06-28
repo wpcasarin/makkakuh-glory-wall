@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useEffect, useState } from "react";
 
 import type { Database } from "@lib/types";
@@ -14,10 +13,8 @@ type Member = Database["public"]["Tables"]["tb_members"]["Row"];
 type Honor = Database["public"]["Tables"]["tb_member_honor"]["Row"];
 
 const HomePage = () => {
-  // @ts-expect-error
-  const [members, setMembers] = useState<Member[]>(undefined);
-  // @ts-expect-error
-  const [honors, setHonors] = useState<Honor[]>(undefined);
+  const [members, setMembers] = useState<Member[] | null>();
+  const [honors, setHonors] = useState<Honor[] | null>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,23 +23,19 @@ const HomePage = () => {
         .select("*");
       if (error) throw error;
       {
-        console.log("FOI");
         const { data, error } = await supabaseClient
           .from("tb_member_honor")
           .select("*");
-        console.log(data);
-        if (error) console.error(error);
+        if (error) throw error;
         setHonors(data);
       }
       setMembers(data);
     };
-
     fetchData();
   }, [setMembers, setHonors]);
 
   return (
     <>
-      <button onClick={() => console.log(JSON.stringify(honors))}>AAAA</button>
       <div className="container mb-10">
         <h1 className="mb-6 mt-4 text-center font-halibut text-6xl font-bold text-yellow-950">
           Mural da Glória
