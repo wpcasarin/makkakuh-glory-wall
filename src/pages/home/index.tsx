@@ -9,14 +9,15 @@ import { Honor } from "./components/Honor";
 import { MemberAvatar } from "./components/MemberAvatar";
 import { MemberInfo } from "./components/MemberInfo";
 
-type Member = {
-  description: string;
-  id: number;
-  name: string;
-  picture_url: string;
-  rank: number;
-};
+// type Member = {
+//   description: string;
+//   id: number;
+//   name: string;
+//   picture_url: string;
+//   rank: number;
+// };
 
+type Member = Database["public"]["Tables"]["tb_members"]["Row"];
 type Honor = Database["public"]["Tables"]["tb_member_honor"]["Row"];
 
 const HomePage = () => {
