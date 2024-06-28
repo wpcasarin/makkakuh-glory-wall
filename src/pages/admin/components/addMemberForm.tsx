@@ -41,7 +41,7 @@ const addMemberSchema = v.object({
     v.minLength(10, "Descrição deve conter 10 caracteres ou mais.")
   ),
   picture_url: v.string(),
-  rank: v.string(),
+  rank: v.number(),
   file: v.pipe(
     v.instance(FileList),
     v.check((input) => input.length > 0, "Selecione uma imagem.")
@@ -57,7 +57,7 @@ const AddMemberForm = () => {
       name: "",
       description: "",
       picture_url: "",
-      rank: "1",
+      rank: 1,
     },
   });
 
@@ -103,7 +103,7 @@ const AddMemberForm = () => {
 
       if (error) {
         setError("root.serverError", {
-          type: error.name,
+          type: error.message,
           message: error.message,
         });
         return;
@@ -161,7 +161,7 @@ const AddMemberForm = () => {
                     <FormLabel>Patente</FormLabel>
                     <Select
                       onValueChange={field.onChange}
-                      defaultValue={field.value}
+                      defaultValue={field.value.toString()}
                     >
                       <FormControl>
                         <SelectTrigger>

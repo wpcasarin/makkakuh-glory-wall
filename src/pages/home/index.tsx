@@ -6,20 +6,15 @@ import { supabaseClient } from "@lib/supabase";
 import { cn } from "@lib/utils";
 
 import { Honor } from "./components/Honor";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// import Medal from "../../assets/medal.svg?react";
 import { MemberAvatar } from "./components/MemberAvatar";
 import { MemberInfo } from "./components/MemberInfo";
 
 type Member = {
-  created_at: string;
   description: string;
   id: number;
   name: string;
   picture_url: string;
   rank: number;
-  update_at: string;
 };
 
 type Honor = Database["public"]["Tables"]["tb_member_honor"]["Row"];
